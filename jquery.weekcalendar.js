@@ -236,7 +236,7 @@
          * class
          * @type {boolean}
          */
-        displayOddEven: false,
+        displayOddEven: true,
         textSize: 13,
         /**
          * the title attribute for the calendar. possible placeholders are:
@@ -1071,6 +1071,11 @@
 
                 $newEvent.remove();
                 var newCalEvent = {start: eventDuration.start, end: eventDuration.end, title: options.newEventText};
+
+                if(options.newEvent){
+                	options.newEvent(newCalEvent);
+                }
+                
                 var showAsSeparatedUser = options.showAsSeparateUsers && options.users && options.users.length;
 
                 if (showAsSeparatedUser) {
@@ -1079,7 +1084,7 @@
                 else if (!options.showAsSeparateUsers && options.users && options.users.length == 1) {
                   newCalEvent = self._setEventUserId(newCalEvent, self._getUserIdFromIndex(0));
                 }
-
+                
                 var freeBusyManager = self.getFreeBusyManagerForEvent(newCalEvent);
 
                 var $renderedCalEvent = self._renderEvent(newCalEvent, $weekDay);
